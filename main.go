@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"myBalance/cmd"
 	"myBalance/cmd/handler/deposit"
+	depositSrv "myBalance/internal/deposit"
 )
 
 func main() {
@@ -15,8 +16,8 @@ func main() {
 			"balance": cmd.NewBalance,
 		})
 	})
-
-	depositHandler := deposit.New()
+	depositService := depositSrv.New()
+	depositHandler := deposit.New(depositService)
 
 	app.Get("/my_balance/deposit/:balance", depositHandler.Deposit)
 

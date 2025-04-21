@@ -1,24 +1,27 @@
 package deposit
 
 import (
+	"errors"
 	"github.com/gofiber/fiber/v3"
-	"myBalance/cmd"
-	"strconv"
 )
 
 func (h *handler) Deposit(c fiber.Ctx) error {
 
 	balanceStr := c.Params("balance")
-	balance, err := strconv.Atoi(balanceStr)
+
+	newBalance, err := h.depositService.Deposit(balanceStr)
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"msg": "error balance",
+		if errors.Is(err, fiber.ErrBadRequest) {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": err.Error(),
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"msg": "internal server error",
 		})
 	}
-
-	cmd.NewBalance -= balance
 	return c.JSON(fiber.Map{
-		"balance": cmd.NewBalance,
+		"balance": newBalance,
 		"date":    "18.04.25",
 	})
 }
