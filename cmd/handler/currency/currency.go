@@ -3,6 +3,7 @@ package currency
 import (
 	"errors"
 	"github.com/gofiber/fiber/v3"
+	"myBalance/cmd"
 )
 
 func (h *handler) Currency(c fiber.Ctx) error {
@@ -21,7 +22,7 @@ func (h *handler) Currency(c fiber.Ctx) error {
 		})
 	}
 	return c.JSON(fiber.Map{
-		"balance_tjs": 10,
+		"balance_tjs": cmd.NewBalance,
 		"balance_rub": my_balance,
 	})
 }

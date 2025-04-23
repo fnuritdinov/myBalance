@@ -33,20 +33,7 @@ func main() {
 	currencyHandler := currency.New(currencyService)
 	app.Get("/currency_rate/:currency_rate", currencyHandler.Currency)
 
-	//app.Get("/currency_rate/:rate", func(c fiber.Ctx) error {
-	//	rateStr := c.Params("rate")
-	//	rate, err := strconv.ParseFloat(rateStr, 64)
-	//	if err != nil {
-	//		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-	//			"error": "Неверный курс валюты",
-	//		})
-	//	}
-	//	balanceRub := float64(myBalance) * rate
-	//	return c.JSON(fiber.Map{
-	//		"balance_tjs": myBalance,
-	//		"balance_rub": balanceRub,
-	//	})
-	//})
+	//app.Get("/convert/30", (c fiber.Ctx) error
 
 	app.Listen(":3000")
 }
