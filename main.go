@@ -6,10 +6,13 @@ import (
 	"myBalance/cmd/handler/currency"
 	"myBalance/cmd/handler/deposit"
 	"myBalance/cmd/handler/my_balance"
+	"myBalance/cmd/handler/payment"
+	userSrvc "myBalance/cmd/handler/user"
 	creditSrv "myBalance/internal/credit"
 	currencySrv "myBalance/internal/currency"
 	depositSrv "myBalance/internal/deposit"
 	myBalanceSrv "myBalance/internal/my_balance"
+	paymentSrvc "myBalance/internal/payment"
 )
 
 func main() {
@@ -33,7 +36,10 @@ func main() {
 	currencyHandler := currency.New(currencyService)
 	app.Get("/currency_rate/:currency_rate", currencyHandler.Currency)
 
-	//app.Get("/convert/30", (c fiber.Ctx) error
+	paymentService := paymentSrvc.New()
+	paymentHandler := payment.New(paymentService)
+	app.Post("/payment", paymentHandler.Payment)
+
 
 	app.Listen(":3000")
-}
+
