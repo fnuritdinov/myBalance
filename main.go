@@ -7,7 +7,6 @@ import (
 	"myBalance/cmd/handler/deposit"
 	"myBalance/cmd/handler/my_balance"
 	"myBalance/cmd/handler/payment"
-	userSrvc "myBalance/cmd/handler/user"
 	creditSrv "myBalance/internal/credit"
 	currencySrv "myBalance/internal/currency"
 	depositSrv "myBalance/internal/deposit"
@@ -40,6 +39,6 @@ func main() {
 	paymentHandler := payment.New(paymentService)
 	app.Post("/payment", paymentHandler.Payment)
 
-
 	app.Listen(":3000")
 
+}
